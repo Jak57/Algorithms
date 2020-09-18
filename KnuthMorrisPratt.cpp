@@ -3,49 +3,34 @@
 using namespace std;
 
 int pi[1000];
-
-void prefix_function(string s)
-{
-    int n, i, j;
-    n = s.length();
-    pi[0] = 0;
-
-    for(i = 1, j = 0; i < n; i++){
-        while(s[j] != s[i] && j > 0){
-            j = pi[j-1];
-        }
-        if(s[j] == s[i]){
-            j++;
-        }
-        pi[i] = j;
-
-    }
-
-}
+vector<int> v;
 
 void kmp_matcher(string text, string pattern)
 {
-    int m, n, i, j, cnt = 0;
-    prefix_function(pattern);
-
+    int m, n, i, j;
+    pi[0] = 0;
     n = text.size();
     m = pattern.size();
 
-    for(i = 0, j = 0; i < n; i++){
-        while(j > 0 && text[i] != pattern[j])
-            j = pi[j-1];
+    string temp = pattern + "#" + text;
+    int l = temp.size();
 
-        if(text[i] == pattern[j]){
+    for(i = 1, j = 0; i < l; i++){
+        while(j > 0 && temp[j] != temp[i]){
+            j = pi[j-1];
+        }
+
+        if(temp[j] == temp[i])
             j++;
-        }
 
-        if(j == m){
-            printf("Pattern found at %d\n", i - m +1);
-            j = pi[j-1];
-        }
+        pi[i] = j;
+        if(pi[i] == m)
+            v.push_back(i-(2*m));
     }
-}
 
+    for(i = 0; i < v.size(); i++)
+        cout<< v[i] << "\n";
+}
 
 int main()
 {
@@ -54,8 +39,5 @@ int main()
 
     kmp_matcher(text, pattern);
 
-
-
     return 0;
 }
-
