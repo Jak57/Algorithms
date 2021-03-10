@@ -1,37 +1,27 @@
 #include<bits/stdc++.h>
-#define MAX 1000001
 
 using namespace std;
 
-bool p[MAX];
-
-void seive(int n)
-{
-    int i, j;
-    p[1] = 1;
-
-    for(i = 4; i <= n; i += 2)
-        p[i] = 1;
-
-    for(i = 3; i*i <= n; i += 2){
-        if(p[i] == 0){
-            for(j = i*i; j <= n; j += i)
-                p[j] = 1;
-        }
-    }
-
-}
-
 int main()
 {
-    int n, i, j;
+    int n, i, j, m, cnt;
     cin>> n;
-    seive(n);
+    m = n;
 
-    for(i = 1; i <= n; i++){
-        if(p[i] == 0)
-            cout<< i << "\n";
+    for(i = 2; i*i <= n; i++){
+        cnt = 0;
+        while(n % i == 0){
+            n /= i;
+            cnt++;
+        }
+
+        if(cnt != 0)
+            cout<< i << " " << cnt << "\n";
+
     }
+    if(n > 1)
+        cout<< n << " " << "1" << "\n";
+
 
 
     return 0;
