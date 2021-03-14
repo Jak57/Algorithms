@@ -99,3 +99,60 @@ int main()
 10
 */
 
+//GCD sUM
+
+#include<bits/stdc++.h>
+#define MAX 1000000
+
+using namespace std;
+
+int arr[MAX];
+
+void phi(int n)
+{
+    int i, j;
+    for(i = 1; i <= n; i++)
+        arr[i] = i;
+
+    for(i = 2; i <= n; i++){
+        if(arr[i] == i){
+            for(j = i; j <= n; j += i){
+                arr[j] = (arr[j] * (i-1)) / i;
+            }
+        }
+    }
+
+}
+
+int main()
+{
+    int n, i, t, j, ans, d;
+    cin>> t;
+    phi(100000);
+
+    for(i = 1; i <= t; i++){
+        cin>> n;
+
+        ans = 0;
+        for(j = 1; j*j <= n; j++){
+            if(n % j == 0){
+                ans += (j * arr[n/j]);
+            }
+            if(j != n/j)
+            {
+                d = n/j;
+                ans += (d * arr[n/d]);
+            }
+        }
+        cout<< ans << "\n";
+    }
+
+
+    return 0;
+}
+
+/*
+1
+12
+*/
+
