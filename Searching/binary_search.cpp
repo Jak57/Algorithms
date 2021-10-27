@@ -25,7 +25,6 @@ bool binarySearch(int arr[], int n, int k)
 
     while (low <= high)
     {
-        // printf("%d %d %d\n", low, high, mid);
         mid = (low + high)/2;
         printf("%d %d %d\n", low, high, mid);
 
